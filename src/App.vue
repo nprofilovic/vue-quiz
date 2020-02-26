@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <Header />
+    <Header :numCorrect="numCorrect" :numTotal="numTotal" />
     <div class="row">
       <div class="col-sm">
        
       </div>
       <div class="col-sm">
-        <QuestionBox v-if="questions.length" :currentQuestion ="questions[index]" :next= "next" />
+        <QuestionBox v-if="questions.length" :currentQuestion ="questions[index]" :next= "next" :increment = "increment"/>
       </div>
       <div class="col-sm">
         
@@ -29,13 +29,21 @@ export default {
   data(){
     return {
       questions: [],
-      index: 0
+      index: 0,
+      numCorrect: 0,
+      numTotal: 0
     }
   },
   methods:{
     next() {
       this.index++
     },
+    increment(isCorrect) {
+      if(isCorrect) {
+        this.numCorrect++
+      }
+      this.numTotal++
+    }
     
   },
   mounted: function() {
